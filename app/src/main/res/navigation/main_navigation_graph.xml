@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation_graph"
+    app:startDestination="@id/notesListFragment">
+
+    <fragment
+        android:id="@+id/notesListFragment"
+        android:name="com.example.samplemvvmnotepad.ui.main.noteslist.NotesListFragment"
+        android:label="All Notes"
+        tools:layout="@layout/notes_list_fragment" />
+    <fragment
+        android:id="@+id/createNoteFragment"
+        android:name="com.example.samplemvvmnotepad.ui.main.createnote.CreateNoteFragment"
+        android:label="Create new Note"
+        tools:layout="@layout/create_note_fragment" />
+</navigation>
