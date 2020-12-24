@@ -13,6 +13,5 @@
     <fragment
         android:id="@+id/createNoteFragment"
         android:name="com.example.samplemvvmnotepad.ui.main.createnote.CreateNoteFragment"
-        android:label="Create new Note"
         tools:layout="@layout/create_note_fragment" />
 </navigation>

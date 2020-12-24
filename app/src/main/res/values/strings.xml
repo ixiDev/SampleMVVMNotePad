@@ -3,4 +3,9 @@
     <string name="what_s_your_note">What\'s your note?</string>
     <string name="save_note">Save Note</string>
     <string name="pick_note_color">Pick note color</string>
+    <string name="note_color">Note color :</string>
+    <string name="switch_darkmode">Switch DarkMode</string>
+    <string name="no_notes_yet">No notes yet!</string>
+    <string name="delete_notes">Delete notes</string>
+    <string name="add_new_note">Add new note</string>
 </resources>

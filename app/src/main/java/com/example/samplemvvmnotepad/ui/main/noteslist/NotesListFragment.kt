@@ -1,16 +1,18 @@
 package com.example.samplemvvmnotepad.ui.main.noteslist
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.samplemvvmnotepad.R
+import com.example.samplemvvmnotepad.common.MyActionModeCallback
 import com.example.samplemvvmnotepad.common.ViewModelFactory
+import com.example.samplemvvmnotepad.common.setVisible
+import com.example.samplemvvmnotepad.ui.main.createnote.CreateNoteFragment
 
 class NotesListFragment : Fragment() {
 
@@ -18,6 +20,7 @@ class NotesListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: NotesAdapter
+    private lateinit var emptyView: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,10 +34,41 @@ class NotesListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         this.recyclerView = view.findViewById(R.id.notes_recycler_view)
-        this.adapter = NotesAdapter()
+        this.emptyView = view.findViewById(R.id.empty_view)
+
+        this.adapter = NotesAdapter(
+            onNoteClick = { note ->  // on note click event
+
+                // send note id to createNoteFragment
+                val args = Bundle().also {
+                    it.putInt(CreateNoteFragment.NOTE_ID_ARG, note.id)
+                }
+                findNavController().navigate(R.id.createNoteFragment, args)
+            },
+            onShowActionMode = {
+                //  show action mode
+                onShowActionMode()
+            },
+            onNoteSelected = { isNoteSelected, noteId ->
+                // save note id to view model
+                viewModel.setNoteSelected(isNoteSelected, noteId)
+            }
+        )
+
         this.recyclerView.adapter = this.adapter // set adapter to recyclerView
     }
 
+
+    private fun onShowActionMode() {
+        requireActivity().startActionMode(MyActionModeCallback(
+            deleteSelectedNotes = {
+                viewModel.deleteSelectedNotes()
+            },
+            onActionModeClosed = {
+                adapter.disableActionMode()
+            }
+        ))
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -46,6 +80,17 @@ class NotesListFragment : Fragment() {
         viewModel.getAllNotes().observe(viewLifecycleOwner, { data ->
             adapter.submitData(lifecycle, data)
         })
+
+        viewModel.getNotesCount().observe(viewLifecycleOwner) { count ->
+            showEmptyView(count == 0)
+        }
+
+    }
+
+
+    private fun showEmptyView(isEmpty: Boolean) {
+        this.recyclerView.setVisible(!isEmpty)
+        this.emptyView.setVisible(isEmpty)
 
     }
 

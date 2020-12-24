@@ -1,5 +1,6 @@
 package com.example.samplemvvmnotepad.data.db
 
+import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.example.samplemvvmnotepad.data.entities.Note
@@ -26,5 +27,15 @@ interface NotesDao {
 
     @Query("SELECT * FROM notes ORDER BY updatedDate DESC")
     fun findAllNotes(): PagingSource<Int, Note>
+
+    @Query("DELETE FROM notes WHERE id =:noteId")
+    suspend fun deleteNoteById(noteId: Int)
+
+    /**
+     * we use this to show empty view when notes count is 0
+     */
+    @Query("SELECT count(id) FROM notes")
+    fun getNotesCount(): LiveData<Int>
+
 
 }

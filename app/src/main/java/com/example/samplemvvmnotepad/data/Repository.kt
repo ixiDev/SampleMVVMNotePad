@@ -1,5 +1,7 @@
 package com.example.samplemvvmnotepad.data
 
+import androidx.collection.ArraySet
+import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import com.example.samplemvvmnotepad.data.db.NotesDao
 import com.example.samplemvvmnotepad.data.entities.Note
@@ -20,8 +22,18 @@ class Repository(private val dao: NotesDao) {
         dao.update(oldNote)
     }
 
-    fun getAllNotes():PagingSource<Int,Note>{
+    fun getAllNotes(): PagingSource<Int, Note> {
         return dao.findAllNotes()
+    }
+
+    suspend fun deleteNotesByIds(notesIds: ArraySet<Int>) {
+        notesIds.forEach { noteId ->
+            dao.deleteNoteById(noteId)
+        }
+    }
+
+    fun getNotesCount(): LiveData<Int> {
+        return dao.getNotesCount()
     }
 
 

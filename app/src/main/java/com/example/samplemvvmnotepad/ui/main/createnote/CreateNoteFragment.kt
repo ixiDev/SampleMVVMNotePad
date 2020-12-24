@@ -1,17 +1,22 @@
 package com.example.samplemvvmnotepad.ui.main.createnote
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.*
-import android.widget.EditText
+import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.azeesoft.lib.colorpicker.ColorPickerDialog
 import com.example.samplemvvmnotepad.R
+import com.example.samplemvvmnotepad.common.IAztecToolbarClickListenerImpl
 import com.example.samplemvvmnotepad.common.ViewModelFactory
 import com.example.samplemvvmnotepad.common.hideKeyboard
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.wordpress.aztec.Aztec
+import org.wordpress.aztec.AztecText
+import org.wordpress.aztec.toolbar.AztecToolbar
 
 class CreateNoteFragment : Fragment() {
 
@@ -23,7 +28,11 @@ class CreateNoteFragment : Fragment() {
      */
     private var noteId: Int? = null
 
-    private lateinit var noteInputView: EditText
+    private lateinit var noteInputView: AztecText
+    private lateinit var formattingToolbar: AztecToolbar
+    private lateinit var noteColorView: View
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,6 +48,16 @@ class CreateNoteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         this.noteInputView = view.findViewById(R.id.note_input_view)
+        this.formattingToolbar = view.findViewById(R.id.formatting_toolbar)
+        this.noteColorView = view.findViewById(R.id.note_color_view)
+
+        // setup text editor
+        Aztec.with(
+            this.noteInputView,
+            this.formattingToolbar,
+            IAztecToolbarClickListenerImpl()
+
+        )
 
     }
 
@@ -60,6 +79,7 @@ class CreateNoteFragment : Fragment() {
             }
             R.id.action_pick_note_color -> {
                 // TODO: 12/23/20  show ColorDialog to chose note color
+                showColorDialog()
             }
         }
 
@@ -74,6 +94,12 @@ class CreateNoteFragment : Fragment() {
             ViewModelFactory(requireContext())
         ).get(CreateNoteViewModel::class.java)
 
+        viewModel.getNoteColor().observe(viewLifecycleOwner) { hexColor ->
+
+            this.noteColorView.setBackgroundColor(hexColor.toColorInt())
+        }
+
+        // receive  note id
         noteId = arguments?.getInt(NOTE_ID_ARG)
 
         if (noteId != null) {
@@ -81,7 +107,11 @@ class CreateNoteFragment : Fragment() {
             // Main Thread
             lifecycleScope.launch(Dispatchers.Main) {
                 val note = viewModel.getNoteById(noteId!!)
-                noteInputView.setText(note.text)
+
+                viewModel.saveNoteColor(note.color) // change color note in view model
+
+                //noteInputView.setText(note.text)
+                noteInputView.fromHtml(note.text) // use from html because  we save note text as html
 
             }
         } else {
@@ -96,7 +126,7 @@ class CreateNoteFragment : Fragment() {
         // hide keyboard  , i will use extension function , let's see google :D
         noteInputView.hideKeyboard()
 
-        val text = noteInputView.text.toString()
+        val text = noteInputView.toFormattedHtml() // get text as html not as normal string
 
         if (text.isEmpty()) {
             return // no text to save it
@@ -111,9 +141,18 @@ class CreateNoteFragment : Fragment() {
 
     }
 
+    private fun showColorDialog() {
+        val colorPickerDialog = ColorPickerDialog.createColorPickerDialog(requireContext())
+        colorPickerDialog.setOnColorPickedListener { color, hexVal ->
+            // send hexVal to viewModel
+            viewModel.saveNoteColor(hexVal)
+        }
+        colorPickerDialog.show()
+    }
+
 
     companion object {
-        const val NOTE_ID_ARG = "note_id";
+        const val NOTE_ID_ARG = "note_id"
 
     }
 }

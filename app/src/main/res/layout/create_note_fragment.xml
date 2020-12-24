@@ -1,19 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.main.createnote.CreateNoteFragment">
 
 
-    <EditText
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="5dp"
+            android:text="@string/note_color" />
+
+        <View
+            android:id="@+id/note_color_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#fff" />
+    </LinearLayout>
+
+    <View
+        android:background="#1C1A1A"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <org.wordpress.aztec.AztecText
         android:id="@+id/note_input_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:ems="10"
-        android:hint="@string/what_s_your_note"
-        android:padding="10dp"
-        android:background="#fff"
+        tools:text="@tools:sample/lorem[10]"
         android:gravity="start|top"
-        android:inputType="textMultiLine" />
-</FrameLayout>
+        android:hint="@string/what_s_your_note"
+        android:imeOptions="flagNoExtractUi"
+        android:inputType="textNoSuggestions|textMultiLine"
+        android:padding="10dp"
+        android:scrollbars="vertical"
+        app:textColor="?android:attr/textColorPrimary" />
+
+
+    <org.wordpress.aztec.toolbar.AztecToolbar
+        android:id="@+id/formatting_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+</LinearLayout>

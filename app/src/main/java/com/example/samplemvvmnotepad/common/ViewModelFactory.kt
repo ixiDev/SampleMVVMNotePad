@@ -12,6 +12,7 @@ import com.example.samplemvvmnotepad.ui.main.noteslist.NotesListViewModel
 class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
 
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 
 

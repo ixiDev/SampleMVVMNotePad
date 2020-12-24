@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.samplemvvmnotepad"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -55,6 +55,13 @@ dependencies {
 
     def paging_version = "3.0.0-alpha10"
     implementation "androidx.paging:paging-runtime:$paging_version"
+
+    // text editor
+    api('com.github.wordpress-mobile.WordPress-Aztec-Android:aztec:v1.3.44')
+
+    implementation 'com.azeesoft.lib.colorpicker:colorpicker:1.0.8@aar'
+
+    implementation 'com.github.andyxialm:SmoothCheckBox:145bc772ef'
 
 
 }

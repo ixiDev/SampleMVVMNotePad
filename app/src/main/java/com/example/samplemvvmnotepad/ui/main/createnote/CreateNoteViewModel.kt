@@ -1,5 +1,6 @@
 package com.example.samplemvvmnotepad.ui.main.createnote
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.samplemvvmnotepad.data.Repository
@@ -47,6 +48,15 @@ class CreateNoteViewModel(private val repository: Repository) : ViewModel() {
 
         }
 
+    }
+
+
+    fun saveNoteColor(hexColor: String) {
+        this.noteColor.value = hexColor
+    }
+
+    fun getNoteColor(): LiveData<String> {
+        return this.noteColor
     }
 
 
