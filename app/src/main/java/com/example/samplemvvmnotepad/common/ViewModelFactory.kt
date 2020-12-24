@@ -9,6 +9,7 @@ import com.example.samplemvvmnotepad.ui.main.createnote.CreateNoteViewModel
 import com.example.samplemvvmnotepad.ui.main.noteslist.NotesListViewModel
 
 
+@Deprecated("replaced with viewModels() delegate")
 class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
 
 

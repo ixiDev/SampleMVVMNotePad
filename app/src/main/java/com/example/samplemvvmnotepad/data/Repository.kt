@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import com.example.samplemvvmnotepad.data.db.NotesDao
 import com.example.samplemvvmnotepad.data.entities.Note
+import javax.inject.Inject
 
 // here we will use all logic between db and ViewModels
-class Repository(private val dao: NotesDao) {
+
+class Repository @Inject constructor(private val dao: NotesDao) {
 
 
     suspend fun findNoteById(noteId: Int): Note {

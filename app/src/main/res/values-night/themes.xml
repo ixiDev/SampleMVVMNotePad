@@ -16,5 +16,5 @@
         <item name="windowActionModeOverlay">true</item>
     </style>
 
-    <style name="AppTheme.ToolbarTheme" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.ToolbarTheme" parent="ThemeOverlay.AppCompat.DayNight.ActionBar" />
 </resources>

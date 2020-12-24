@@ -1,5 +1,6 @@
 package com.example.samplemvvmnotepad.ui.main.createnote
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +9,7 @@ import com.example.samplemvvmnotepad.data.entities.Note
 import java.util.*
 
 
-class CreateNoteViewModel(private val repository: Repository) : ViewModel() {
+class CreateNoteViewModel @ViewModelInject constructor(private val repository: Repository) : ViewModel() {
 
     /**
      * this for save note color we need it later ok :D

@@ -4,23 +4,30 @@ import android.os.Bundle
 import android.view.*
 import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.azeesoft.lib.colorpicker.ColorPickerDialog
 import com.example.samplemvvmnotepad.R
 import com.example.samplemvvmnotepad.common.IAztecToolbarClickListenerImpl
-import com.example.samplemvvmnotepad.common.ViewModelFactory
 import com.example.samplemvvmnotepad.common.hideKeyboard
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.wordpress.aztec.Aztec
 import org.wordpress.aztec.AztecText
 import org.wordpress.aztec.toolbar.AztecToolbar
+import javax.inject.Inject
 
+
+@AndroidEntryPoint  // must add this annotation to let hilt generate the code for us
 class CreateNoteFragment : Fragment() {
 
-    private lateinit var viewModel: CreateNoteViewModel
+    // create and inject view model
+    private val viewModel: CreateNoteViewModel by viewModels()
+
+    @Inject
+    lateinit var colorPickerDialog: ColorPickerDialog
 
     /**
      * get this note id wen click on note in RecyclerView
@@ -89,10 +96,13 @@ class CreateNoteFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(requireContext())
-        ).get(CreateNoteViewModel::class.java)
+
+        // we don't need this we will use hilt to create view model
+//        viewModel = ViewModelProvider(
+//            this,
+//            ViewModelFactory(requireContext())
+//        ).get(CreateNoteViewModel::class.java)
+
 
         viewModel.getNoteColor().observe(viewLifecycleOwner) { hexColor ->
 
@@ -142,7 +152,8 @@ class CreateNoteFragment : Fragment() {
     }
 
     private fun showColorDialog() {
-        val colorPickerDialog = ColorPickerDialog.createColorPickerDialog(requireContext())
+        //val colorPickerDialog = ColorPickerDialog.createColorPickerDialog(requireContext())
+
         colorPickerDialog.setOnColorPickedListener { color, hexVal ->
             // send hexVal to viewModel
             viewModel.saveNoteColor(hexVal)

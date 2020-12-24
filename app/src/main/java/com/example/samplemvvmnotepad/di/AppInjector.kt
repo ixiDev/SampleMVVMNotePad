@@ -9,6 +9,7 @@ import com.example.samplemvvmnotepad.data.db.NotesDao
  *  this is a singleton class to get our dependencies
  *
  */
+@Deprecated("Replaced with DbModule")
 object AppInjector {
 
     /**

@@ -5,18 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.samplemvvmnotepad.R
 import com.example.samplemvvmnotepad.common.MyActionModeCallback
-import com.example.samplemvvmnotepad.common.ViewModelFactory
 import com.example.samplemvvmnotepad.common.setVisible
 import com.example.samplemvvmnotepad.ui.main.createnote.CreateNoteFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NotesListFragment : Fragment() {
 
-    private lateinit var viewModel: NotesListViewModel
+    private val viewModel: NotesListViewModel by viewModels()
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: NotesAdapter
@@ -72,10 +73,10 @@ class NotesListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelFactory(requireContext())
-        ).get(NotesListViewModel::class.java)
+//        viewModel = ViewModelProvider(
+//            this,
+//            ViewModelFactory(requireContext())
+//        ).get(NotesListViewModel::class.java)
 
         viewModel.getAllNotes().observe(viewLifecycleOwner, { data ->
             adapter.submitData(lifecycle, data)

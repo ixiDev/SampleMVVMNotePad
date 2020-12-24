@@ -2,6 +2,7 @@ package com.example.samplemvvmnotepad.ui.main.noteslist
 
 
 import androidx.collection.ArraySet
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,7 +14,8 @@ import com.example.samplemvvmnotepad.data.Repository
 import com.example.samplemvvmnotepad.data.entities.Note
 import kotlinx.coroutines.launch
 
-class NotesListViewModel(private val repository: Repository) : ViewModel() {
+class NotesListViewModel
+@ViewModelInject constructor(private val repository: Repository) : ViewModel() {
 
 
     private val selectedNotesIds = ArraySet<Int>()
