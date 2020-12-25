@@ -18,6 +18,7 @@ A sample Android NotePad Build with Kotlin
   - Database With Room 
 
 ## ScreenShots
+<div>
 <p align="center" >
   <img align="left" width="100" src="Screenshots/device-2020-12-25-185728.png">
   <img align="left" width="100"   src="Screenshots/device-2020-12-25-185815.png">
@@ -31,6 +32,8 @@ A sample Android NotePad Build with Kotlin
   <img align="left" width="100"   src="Screenshots/device-2020-12-25-185913.png">
 </p>
 <br/>
+</div>
+
 
 ## MAD Scorecard
 
