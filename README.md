@@ -50,3 +50,7 @@ A sample Android NotePad Build with Kotlin
 - [How to make modern MVVM Android App  in Android Studio 2021  - Part 1](https://youtu.be/AmpqsCA0big)
 - [How to make modern MVVM Android App  in Android Studio 2021  - Part 2](https://youtu.be/ReinMO1ZSGo)
 - [How to make modern MVVM Android App  in Android Studio 2021  - Part 3](https://youtu.be/acdZp2hPw8k)
+- [How to make modern MVVM Android App  in Android Studio 2021  - Part 4](https://youtu.be/TzmtsF4mb28)
+
+
+
