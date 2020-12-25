@@ -39,7 +39,7 @@ A sample Android NotePad Build with Kotlin
 </p>
 
 <p align="center">
-<a href="https://madscorecard.withgoogle.com/scorecards/3855908667/"> Check All MAD Score details</a>
+<a href="https://madscorecard.withgoogle.com/scorecard/share/393509780/"> Check All MAD Score details</a>
 </p>
 
 ## Youtube tutorial videos
