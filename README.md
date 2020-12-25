@@ -31,6 +31,7 @@ A sample Android NotePad Build with Kotlin
   <img align="left" width="100"   src="Screenshots/device-2020-12-25-185913.png">
 </p>
 <br/>
+
 ## MAD Scorecard
 
 <p align="center" >
